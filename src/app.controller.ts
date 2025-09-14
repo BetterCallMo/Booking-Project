@@ -20,7 +20,8 @@ export class AppController {
     return this.appService.patch_user_info(body,req);
   }
   @UseGuards(JwtAuthGuard,RolesGuard)
-  @Roles(RoleWithAdmin.ORGANIZER)
+  //By frontend temp
+  // @Roles(RoleWithAdmin.ORGANIZER)
   @Post("/create_event")
   create_event(@Body(ValidationPipe) createEventDto:CreateEventDto,@Req() req: any){
     return this.appService.createEvent(createEventDto,req)

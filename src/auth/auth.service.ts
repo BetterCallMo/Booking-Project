@@ -11,6 +11,8 @@ import { Role, RoleWithAdmin, SigninDto, SignupDto } from 'src/DTOs/DTOs';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'process';
+//By frontend
+import { BadRequestException, ConflictException } from '@nestjs/common';
 
 
 @Injectable()
@@ -64,7 +66,8 @@ export class AuthService implements OnModuleInit {
       const data = await this.filter(await DbUser); 
       return {success: true,message: 'User created successfully', data:data}
     } else {
-      throw new Error('User already exists');
+      //By frontend
+      throw new ConflictException('User already exists');
     }
   }
 

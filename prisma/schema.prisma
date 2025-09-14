@@ -15,8 +15,8 @@ model User {
   role      Role      @default(USER)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Events    Event[] // every user can organize -IF HE IS AN ORGANIZER- many events
-  Bookings  Booking[] // every user can have many bookings
+  Bookings  Booking[]
+  Events    Event[]
 }
 
 model Event {
@@ -26,20 +26,20 @@ model Event {
   location    String
   date        DateTime
   capacity    Int
-  organizer   User      @relation(fields: [organizerId], references: [id])
   organizerId Int
-  Bookings    Booking[] // every event can have many bookings
+  Bookings    Booking[]
+  organizer   User      @relation(fields: [organizerId], references: [id])
 }
 
 model Booking {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
-  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId   Int
   createdAt DateTime @default(now())
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, eventId]) // a user can book an event only once
+  @@unique([userId, eventId])
 }
 
 enum Role {
