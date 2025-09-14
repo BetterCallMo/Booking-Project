@@ -26,12 +26,12 @@ export default function EventsContent() {
           return;
         }
 
-        const res = await api.get<{ data: Event[] }>("/get_all_organizer_events", {
+        const res = await api.get<{ data: Event[] }>("get_all_organizer_events", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         setEvents(res.data.data);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error(err);
         setError("Failed to fetch events. Maybe your session expired.");
         setEvents([]);

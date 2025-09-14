@@ -6,6 +6,8 @@ import api from "@/lib/api";
 export default function LoginPage() {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
+  const token = localStorage.getItem("token");
+  console.log("Token:", token);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,7 +15,7 @@ export default function LoginPage() {
       const res = await api.post("/auth/signin", form);
       localStorage.setItem("token", res.data.token);
       router.push("/events");
-    } catch (err: any) {
+    } catch (err: unknown) {
       alert(err.response?.data?.message || "Login failed");
     }
   };

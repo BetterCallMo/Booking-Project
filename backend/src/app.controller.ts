@@ -53,7 +53,8 @@ export class AppController {
     return this.appService.cancel_booking(req,id);
 }
 @UseGuards(JwtAuthGuard,RolesGuard)
-@Roles(RoleWithAdmin.ORGANIZER,RoleWithAdmin.ADMIN)
+//By frontend
+@Roles(RoleWithAdmin.ORGANIZER,RoleWithAdmin.ADMIN, RoleWithAdmin.USER)
 @Get("get_all_organizer_events")
 get_all_organizer_events(@Req() req:any){
     return this.appService.get_all_organizer_events(req);
